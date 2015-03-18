@@ -36,7 +36,46 @@
   background-color: #0044cc;
 }
 
+
+
 .label-purple,
 .badge-purple {
   background-color: #6B0AC9;
+}
+
+#labelstatus{
+	border-radius: 5px;
+}
+
+.mybtn {
+  display: inline-block;
+  padding: 16px 22px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #a7a9aa;
+  -webkit-border-radius: 0px !important;
+  border-radius: 0px !important;
+}
+.mymtdelete th{
+	background-color:#d00;
+	border:5px solid white;
+	text-align: right;
+	padding: 5px 12px 5px 5px;
+}
+.mymtdelete td{
+	background-color:#edd;
+	border:2px solid white;
+	text-align: left;
+	padding: 5px 12px 5px 10px;
+	width:300px;
+}
+.modal-body{
+	algin: center;
+	algin: middle;
 }

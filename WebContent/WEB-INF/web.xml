@@ -23,6 +23,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CourtServlet</servlet-name>
-    <url-pattern>/court/court.do</url-pattern>
+    <url-pattern>/back/court/court.do</url-pattern>
   </servlet-mapping>
 </web-app>

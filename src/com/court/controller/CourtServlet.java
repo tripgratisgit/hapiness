@@ -171,6 +171,92 @@ public class CourtServlet extends HttpServlet {
 			}
 		}
 		
+		if ("delete".equals(action)) { // receive request from listAllCourt.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = req.getParameter("requestURL"); // delete request from source: /court/listAllCourt.jsp  or /emp/listCourt_ByCompositeQuery.jsp
+
+			try {
+				/***************************1.receive request parameter***************************************/
+				Integer cid = new Integer(req.getParameter("cid"));
+				
+				/***************************2.starting delete data***************************************/
+				CourtService coSvc = new CourtService();
+				CourtVO courtVO = coSvc.getOneCourt(cid);
+				coSvc.deleteCourt(cid);
+				
+//				/***************************3.delete completed ready to forward(Send the Success view)***********/
+//				DeptService deptSvc = new DeptService();
+//				if(requestURL.equals("/dept/listEmps_ByDeptno.jsp") || requestURL.equals("/dept/listAllDept.jsp"))
+//					req.setAttribute("listEmps_ByDeptno",deptSvc.getEmpsByDeptno(empVO.getDeptno())); // 資料庫取出的list物件,存入request
+//				
+//				if(requestURL.equals("/emp/listEmps_ByCompositeQuery.jsp")){
+//					HttpSession session = req.getSession();
+//					Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");
+//					List<EmpVO> list  = empSvc.getAll(map);
+//					req.setAttribute("listEmps_ByCompositeQuery",list); //  複合查詢, 資料庫取出的list物件,存入request
+//				}
+				
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************other exception handling**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher(requestURL);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("validate".equals(action)) { // receive request from listAllCourt.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = req.getParameter("requestURL"); // delete request from source: /court/listAllCourt.jsp  or /emp/listCourt_ByCompositeQuery.jsp
+
+			try {
+				/***************************1.receive request parameter***************************************/
+				Integer cid = new Integer(req.getParameter("cid"));
+				
+				/***************************2.starting delete data***************************************/
+				CourtService coSvc = new CourtService();
+				CourtVO courtVO = coSvc.getOneCourt(cid);
+				coSvc.validate(cid);
+				
+//				/***************************3.delete completed ready to forward(Send the Success view)***********/
+//				DeptService deptSvc = new DeptService();
+//				if(requestURL.equals("/dept/listEmps_ByDeptno.jsp") || requestURL.equals("/dept/listAllDept.jsp"))
+//					req.setAttribute("listEmps_ByDeptno",deptSvc.getEmpsByDeptno(empVO.getDeptno())); // 資料庫取出的list物件,存入request
+//				
+//				if(requestURL.equals("/emp/listEmps_ByCompositeQuery.jsp")){
+//					HttpSession session = req.getSession();
+//					Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");
+//					List<EmpVO> list  = empSvc.getAll(map);
+//					req.setAttribute("listEmps_ByCompositeQuery",list); //  複合查詢, 資料庫取出的list物件,存入request
+//				}
+				
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************other exception handling**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher(requestURL);
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 
 }

@@ -383,7 +383,7 @@
                                   <th>連絡電話</th>
                                   <th>最後修改時間</th>
                                   <th>狀態</th>
-                                  <th>1處理方式</th>
+                                  <th>處理方式</th>
                               </tr>
                           </thead>   
                           <tbody>
@@ -394,10 +394,10 @@
 			<td class="center">${courtVO.ctel}</td>
 			<td class="center">${courtVO.cedit}</td>
 			<td class="center">
-			<c:if test="${courtVO.cstatus==0}"><span class="label label-warning">待審核</span></c:if>
-			<c:if test="${courtVO.cstatus==1}"><span class="label label-success">已審核</span></c:if>
-			<c:if test="${courtVO.cstatus==2}"><span class="label">已失效</span></c:if>
-			<c:if test="${courtVO.cstatus==3}"><span class="label label-important">失效中的失效</span></c:if>
+			<c:if test="${courtVO.cstatus==0}"><span id="labelstatus" class="label label-warning">待審核</span></c:if>
+			<c:if test="${courtVO.cstatus==1}"><span id="labelstatus" class="label label-success">已審核</span></c:if>
+			<c:if test="${courtVO.cstatus==2}"><span id="labelstatus" class="label label-important">已失效</span></c:if>
+			<c:if test="${courtVO.cstatus==3}"><span id="labelstatus" class="label label-important">失效中的失效</span></c:if>
 			
 			</td>
                                 
@@ -405,22 +405,48 @@
                                 
                    
                                 <td class="center">
-                                    <a class="btn btn-success" href="#">
+                                    <a class="btn btn-info" href="#">
                                         <i class="halflings-icon white zoom-in"></i>                                            
                                     </a>
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>                                            
+                                    
+
+                                    
+<!--                                     Approved btn shown according to status -->
+                                    <c:if test="${courtVO.cstatus==0}">
+                                    <a class="btn btn-success" data-toggle="modal" data-target=".validmodal" href="#">
+                                        <i class="halflings-icon white edit"></i> 
                                     </a>
-                                    <c:if test="${courtVO.cstatus!=2}">
-                                    <a class="btn btn-inverse" href="#">
+                                    </c:if>
+                                    <c:if test="${courtVO.cstatus!=0}">
+                                    <a class="btn">
+                                        <i class="halflings-icon white edit"></i> 
+                                    </a>
+                                    </c:if>
+                                    
+<!--                                     delete btn shown according to status -->
+                                    <c:if test="${courtVO.cstatus==1}">
+                                    <a class="btn btn-danger" data-toggle="modal" data-target=".deletemodal${courtVO.cid}" href="#">
                                         <i class="halflings-icon white trash"></i> 
                                     </a>
                                     </c:if>
+                                    <c:if test="${courtVO.cstatus!=1}">
+                                    <a class="btn">
+                                        <i class="halflings-icon white trash"></i> 
+                                    </a>
+                                    </c:if>
+                                 
+
+                                    
+                                    
+
+			    
+  
+                                    
                                 </td>
      </tr>
 </c:forEach>
  
-     
+
        
                             
                           </tbody>
@@ -443,6 +469,64 @@
         <!--/#content.span10-->
     </div>
     <!--/fluid-row-->
+                    
+
+
+
+    
+<c:forEach var="courtVO" items="${list}">
+
+<div class="modal fade deletemodal${courtVO.cid}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>刪除此筆場地資料</h3>
+        </div>
+        <div class="modal-body">
+<table class="mymtdelete">
+	<tr>
+		<th>場地編號</th>
+		<td>${courtVO.cid}</td>
+	</tr>
+	<tr>
+		<th>場地名稱</th>
+		<td>${courtVO.cname}</td>
+	</tr>
+	<tr>
+		<th>場地縣市</th>
+		<td>${courtVO.ccity}</td>
+	</tr>
+	<tr>
+		<th>場地地址</th>
+		<td>${courtVO.caddr}</td>
+	</tr>
+	<tr>
+		<th>場地電話</th>
+		<td>${courtVO.ctel}</td>
+	</tr>
+	<tr>
+		<th>場地聯絡人</th>
+		<td>${courtVO.ccon}</td>
+	</tr>
+	<tr>
+		<th>新增時間</th>
+		<td>${courtVO.cnew}</td>
+	</tr>
+	<tr>
+		<th>最後修改時間</th>
+		<td>${courtVO.cedit}</td>
+	</tr>
+</table>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">取消</a>
+            <a href="#" class="btn btn-danger">確定刪除</a>
+        </div>
+</div>
+</div>
+</div>
+</c:forEach>
 
 	<div class="modal hide fade" id="myModal">
         <div class="modal-header">
@@ -454,9 +538,16 @@
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">取消</a>
-            <a href="#" class="btn btn-primary">確定</a>
+            <a href="#" class="btn btn-primary">11確定</a>
         </div>
     </div>
+
+<%--               <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back/court/court.do"> --%>
+<!-- 			    <input type="submit" value="DELETE" class="btn halflings-icon white trash"> -->
+<%-- 			    <input type="hidden" name="cid" value="${courtVO.cid}"> --%>
+<%-- 			    <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--> --%>
+<!-- 			    <input type="hidden" name="action"value="delete"></FORM> -->
+
 
     <div class="clearfix"></div>
 
