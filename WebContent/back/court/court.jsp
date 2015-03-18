@@ -383,7 +383,7 @@
                                   <th>連絡電話</th>
                                   <th>最後修改時間</th>
                                   <th>狀態</th>
-                                  <th>處理方式</th>
+                                  <th>1處理方式</th>
                               </tr>
                           </thead>   
                           <tbody>
